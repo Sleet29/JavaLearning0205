@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-class JDBCExample2_Oracle1_column_name_goodsinfo {
+class JDBCExample2_Oracle2_column_index_dept {
 	public static void main(String args[]) {
 		Connection conn = null;
 		Statement stmt = null;
@@ -33,34 +33,29 @@ class JDBCExample2_Oracle1_column_name_goodsinfo {
 		     * 이 메소드는 파라미터로 넘겨준 select 문을 데이터 베이스로
 		     * 보내서 실행하고 그 결과로 ResultSet 객체를 리턴합니다.
 		     */
-		    String select_sql 
-		    = "select * "
-		    + "from goodsinfo "
-		    + "WHERE NAME = '디지털 TV'";
-		    
+		    // String select_sql = "select loc,deptno,dname from dept";
+		    String select_sql = "select * from dept";
 		    rs = stmt.executeQuery(select_sql);
 		    
-		    System.out.println("번호\t기기번호\t상품명\t\t가격\t제조사");
+		    System.out.println("번호\t부서번호\t부서명\t\t지역");
 		    System.out.println("-------------------------------------------------------------------------------------");
 		    
 		    /*
-		    ResultSet 객체로부터 select문의 실행 결과를 얻기 위해서는 먼저 next() 메소드를 호출해야 합니다.
+		    ResultSet 객체로부터 select문의 실행 결과를 얻기 위해서는 먼저
+		    next() 메소드를 호출해야 합니다.
+		    rs.next() - 다음 행 위치로 이동하는 메소드
+		    					리턴값은 boolean으로 실제로 행을 읽어 왔는지의 여부
 		     */
 		    
 		    int i = 0;
 		    while (rs.next()) { // 더 이상 읽을 데이터가 없을 때까지 반복
-		    	//String code = rs.getString("code");
-		    	int code = rs.getInt("CODE"); // the column value; if the value is SQL NULL
-		    									// the value returned is null
-		    	String name = rs.getString("NAME"); // the column value; if the value is SQL NULL,
-		    										  // the value returned is null
-		    	int price = rs.getInt("PRICE");
+		    	int deptno = rs.getInt(1);			// 조회시 첫번째 칼럼의 값을 가져옴
+		    	String dname = rs.getString(2);		// 조회시 첫번째 칼럼의 값을 가져옴
+		    	String loc = rs.getString(3);		// 조회시 첫번째 칼럼의 값을 가져옴
 		    	
-		    	String maker = rs.getString("MAKER"); // 1980-12-17 00:00:00
+		    	System.out.printf("%5d\t%5d\t%-15s%s\n",
+		    						++i,deptno,dname,loc);
 		    	
-		    	System.out.printf("%5d\t%d\t%-10s\t%d\t%s",
-	                        ++i, code, name, price, maker);
-		    	System.out.println();
 		    }											//sdf.format(hiredate)
 		    
 		} catch (ClassNotFoundException classNotFoundException) {

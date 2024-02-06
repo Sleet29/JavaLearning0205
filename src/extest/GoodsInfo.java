@@ -1,18 +1,15 @@
 package extest;
-
 public class GoodsInfo {
     private String code;
     private String name;
     private int price;
     private String maker;
 
-    public GoodsInfo(String code, String name, int price, String maker) {
-        this.code = code;
-        this.name = name;
-        this.price = price;
-        this.maker = maker;
+    // Constructor
+    public GoodsInfo() {
     }
 
+    // Getters and setters
     public String getCode() {
         return code;
     }
@@ -45,6 +42,7 @@ public class GoodsInfo {
         this.maker = maker;
     }
 
+    // Override toString() method to customize output format
     @Override
     public String toString() {
         return code + "\t" + name + "\t\t" + price + "\t" + maker;
